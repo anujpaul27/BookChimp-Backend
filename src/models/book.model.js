@@ -17,7 +17,7 @@ const bookSchema = new mongoose.Schema({
         require: true
     },
     price: {
-        type: Number,
+        type: String,
         require: true
     },
     category: {
@@ -26,12 +26,11 @@ const bookSchema = new mongoose.Schema({
     },
     image: {
         type: String,
-        require : true
     },
     status: {
         type: String,
         default: 'pending',
-        enum: ['pending', 'approved']
+        enum: ['Pending', 'Approved']
     },
 })
 
