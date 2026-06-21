@@ -10,5 +10,15 @@ async function createBook(req, res) {
   }
 }
 
-module.exports = {createBook}
+
+async function getTheAllBook (req,res)
+{
+  const allBook = await bookModel.find({})
+  res.status(200).json({
+    success: true,
+    data: allBook
+  })
+}
+
+module.exports = {createBook,getTheAllBook}
 

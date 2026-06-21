@@ -29,9 +29,12 @@ const bookSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        default: 'pending',
+        default: 'Pending',
         enum: ['Pending', 'Approved']
     },
+    librarianId: {        
+        type: String,
+    }
 })
 
 const bookModel = mongoose.model('books', bookSchema)
