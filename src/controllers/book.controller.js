@@ -1,7 +1,8 @@
+const bookModel = require("../models/book.model");
 
 async function createBook(req, res) {
   try {
-    const newBook = new Book(req.body);
+    const newBook = new bookModel(req.body);
     const savedBook = await newBook.save();
     res.status(201).json({ success: true, data: savedBook });
   } catch (error) {
@@ -9,6 +10,5 @@ async function createBook(req, res) {
   }
 }
 
-module.exports = {
-    createBook
-}
+module.exports = {createBook}
+
