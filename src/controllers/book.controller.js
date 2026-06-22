@@ -73,8 +73,8 @@ async function getTheBookById(req, res) {
 // update book status from the admin panel
 async function updatePendingStatus(req, res) {
   try {
-    const { id } = await params;
-    const res = await bookModel.findOneAndUpdate(
+    const { id } = await req.params;
+    const updateBook = await bookModel.findOneAndUpdate(
       { _id: id },
       { $set: { status: "Approved" } },
     );
@@ -104,6 +104,20 @@ async function getThePendingBookForPermission(req, res) {
   }
 }
 
+async function getThePendingBookSpecificLib(req, res) {
+  try {
+    const {id} = await req.params
+    const books = await bookModel.find({ status: "Pending" , librarianId: id });
+    res.status(200).json({
+      data: books,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+}
+
 module.exports = {
   createBook,
   getTheAllBook,
@@ -111,5 +125,6 @@ module.exports = {
   deleteBookById,
   getTheBookById,
   updatePendingStatus,
-  getThePendingBookForPermission
+  getThePendingBookForPermission,
+  getThePendingBookSpecificLib
 };
