@@ -10,15 +10,34 @@ async function createBook(req, res) {
   }
 }
 
-
-async function getTheAllBook (req,res)
-{
-  const allBook = await bookModel.find({})
+async function getTheAllBook(req, res) {
+  const allBook = await bookModel.find({});
   res.status(200).json({
     success: true,
-    data: allBook
-  })
+    data: allBook,
+  });
 }
 
-module.exports = {createBook,getTheAllBook}
+async function getBookForLibrary(req, res) {
+  try {
+    const id = await req.params.id;
+    
+    if (!id) {
+      res.status(400).json({
+        message: "Library id not found!.",
+      });
+    }
 
+    const books = await bookModel.find({ librarianId: id });
+    res.status(200).json({
+      success: true,
+      data: books,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+}
+
+module.exports = { createBook, getTheAllBook, getBookForLibrary };
