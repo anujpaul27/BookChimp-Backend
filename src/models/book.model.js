@@ -30,7 +30,7 @@ const bookSchema = new mongoose.Schema({
     status: {
         type: String,
         default: 'Pending',
-        enum: ['Pending', 'Approved']
+        enum: ['Pending', 'Approved',"Unpublish"]
     },
     librarianId: {        
         type: String,

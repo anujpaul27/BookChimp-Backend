@@ -10,6 +10,7 @@ async function createBook(req, res) {
   }
 }
 
+
 async function getTheAllBook(req, res) {
   const allBook = await bookModel.find({});
   res.status(200).json({
@@ -118,6 +119,26 @@ async function getThePendingBookSpecificLib(req, res) {
   }
 }
 
+// Unpublish books 
+async function bookUnpublish(req, res) {
+  try {
+    const { id } = await req.params;
+    const updateBook = await bookModel.findOneAndUpdate(
+      { _id: id },
+      { $set: { status: "Unpublish" } },
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Book Unpublish Successful.",
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+}
+
 module.exports = {
   createBook,
   getTheAllBook,
@@ -126,5 +147,6 @@ module.exports = {
   getTheBookById,
   updatePendingStatus,
   getThePendingBookForPermission,
-  getThePendingBookSpecificLib
+  getThePendingBookSpecificLib,
+  bookUnpublish
 };
