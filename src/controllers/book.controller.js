@@ -23,7 +23,7 @@ async function getBookForLibrary(req, res) {
     const id = await req.params.id;
     
     if (!id) {
-      res.status(400).json({
+      return  res.status(400).json({
         message: "Library id not found!.",
       });
     }
@@ -40,4 +40,27 @@ async function getBookForLibrary(req, res) {
   }
 }
 
-module.exports = { createBook, getTheAllBook, getBookForLibrary };
+async function deleteBookById (req,res)
+{
+  try 
+  {
+    const id = await req.params.id; 
+    const book = await bookModel.deleteOne({_id: id})
+    res.status(200).json({
+      message: 'Book Delete Successful.'
+    })
+  }
+  catch (err)
+  {
+    res.status(500).json ({
+      message: err.message 
+    })
+  }
+}
+
+module.exports = { 
+  createBook, 
+  getTheAllBook, 
+  getBookForLibrary,
+  deleteBookById 
+};

@@ -5,5 +5,6 @@ const bookController = require('../controllers/book.controller')
 bookRouter.post('/create', bookController.createBook)
 bookRouter.get('/all-book', bookController.getTheAllBook)
 bookRouter.get('/library-book/:id', bookController.getBookForLibrary)
+bookRouter.delete('/book-delete/:id', bookController.deleteBookById)
 
 module.exports = bookRouter
