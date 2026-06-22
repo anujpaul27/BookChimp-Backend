@@ -21,9 +21,9 @@ async function getTheAllBook(req, res) {
 async function getBookForLibrary(req, res) {
   try {
     const id = await req.params.id;
-    
+
     if (!id) {
-      return  res.status(400).json({
+      return res.status(400).json({
         message: "Library id not found!.",
       });
     }
@@ -40,49 +40,61 @@ async function getBookForLibrary(req, res) {
   }
 }
 
-async function deleteBookById (req,res)
-{
-  try 
-  {
-    const id = await req.params.id; 
-    const book = await bookModel.deleteOne({_id: id})
+async function deleteBookById(req, res) {
+  try {
+    const id = await req.params.id;
+    const book = await bookModel.deleteOne({ _id: id });
     res.status(200).json({
-      message: 'Book Delete Successful.'
-    })
-  }
-  catch (err)
-  {
-    res.status(500).json ({
-      message: err.message 
-    })
+      message: "Book Delete Successful.",
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
   }
 }
 
-// get the books by bookId 
-async function getTheBookById (req,res)
-{
-  try
-  {
+// get the books by bookId
+async function getTheBookById(req, res) {
+  try {
     const id = await req.params.id;
-    const book = await bookModel.findOne({_id: id})
+    const book = await bookModel.findOne({ _id: id });
     res.status(200).json({
       success: true,
-      data: book
-    })
-  }
-  catch (err)
-  {
+      data: book,
+    });
+  } catch (err) {
     res.status(500).json({
-      message: err.message 
-    })
+      message: err.message,
+    });
   }
-
 }
 
-module.exports = { 
-  createBook, 
-  getTheAllBook, 
+// update book status from the admin panel
+async function updatePendingStatus(req, res) {
+  try {
+    const { id } = await params;
+    const res = await bookModel.findOneAndUpdate(
+      { _id: id },
+      { $set: { status: "Approved" } },
+    );
+
+    res.status(200).json({
+      success: true,
+      message: 'Book Update Successful.'
+    })
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+}
+
+module.exports = {
+  createBook,
+  getTheAllBook,
   getBookForLibrary,
   deleteBookById,
-  getTheBookById
+  getTheBookById,
+  updatePendingStatus
 };
