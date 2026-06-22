@@ -8,5 +8,6 @@ bookRouter.get('/library-book/:id', bookController.getBookForLibrary)
 bookRouter.delete('/book-delete/:id', bookController.deleteBookById)
 bookRouter.get('/get-book/:id', bookController.getTheBookById)
 bookRouter.patch('/update-book/:id', bookController.updatePendingStatus)
+bookRouter.get('/get-pending-book', bookController.getThePendingBookForPermission)
 
 module.exports = bookRouter

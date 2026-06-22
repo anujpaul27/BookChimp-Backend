@@ -81,8 +81,22 @@ async function updatePendingStatus(req, res) {
 
     res.status(200).json({
       success: true,
-      message: 'Book Update Successful.'
-    })
+      message: "Book Update Successful.",
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+}
+
+// get the all pending book for the permission from admin panel
+async function getThePendingBookForPermission(req, res) {
+  try {
+    const books = await bookModel.find({ status: "Pending" });
+    res.status(200).json({
+      data: books,
+    });
   } catch (err) {
     res.status(500).json({
       message: err.message,
@@ -96,5 +110,6 @@ module.exports = {
   getBookForLibrary,
   deleteBookById,
   getTheBookById,
-  updatePendingStatus
+  updatePendingStatus,
+  getThePendingBookForPermission
 };
