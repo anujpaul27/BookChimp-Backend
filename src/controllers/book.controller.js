@@ -58,9 +58,31 @@ async function deleteBookById (req,res)
   }
 }
 
+// get the books by bookId 
+async function getTheBookById (req,res)
+{
+  try
+  {
+    const id = await req.params.id;
+    const book = await bookModel.findOne({_id: id})
+    res.status(200).json({
+      success: true,
+      data: book
+    })
+  }
+  catch (err)
+  {
+    res.status(500).json({
+      message: err.message 
+    })
+  }
+
+}
+
 module.exports = { 
   createBook, 
   getTheAllBook, 
   getBookForLibrary,
-  deleteBookById 
+  deleteBookById,
+  getTheBookById
 };
