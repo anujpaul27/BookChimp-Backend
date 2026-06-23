@@ -1,8 +1,9 @@
 const express = require('express')
 const bookRouter = express.Router()
 const bookController = require('../controllers/book.controller')
+const userMiddleware = require('../middleware/user.middleware')
 
-bookRouter.post('/create', bookController.createBook)
+bookRouter.post('/create',userMiddleware.verifyToken, bookController.createBook)
 bookRouter.get('/all-book', bookController.getTheAllBook)
 bookRouter.get('/library-book/:id', bookController.getBookForLibrary)
 bookRouter.delete('/book-delete/:id', bookController.deleteBookById)
