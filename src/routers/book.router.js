@@ -11,5 +11,6 @@ bookRouter.patch('/update-book/:id', bookController.updatePendingStatus)
 bookRouter.get('/get-pending-book', bookController.getThePendingBookForPermission)
 bookRouter.get('/get-pending-book/:id', bookController.getThePendingBookSpecificLib)
 bookRouter.patch('/unpublish-book/:id', bookController.bookUnpublish)
+bookRouter.get('/all-book/without/pending/unpublish', bookController.getTheAllBookWithoutUnpublishPending)
 
 module.exports = bookRouter

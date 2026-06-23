@@ -10,9 +10,18 @@ async function createBook(req, res) {
   }
 }
 
-
 async function getTheAllBook(req, res) {
   const allBook = await bookModel.find({});
+  res.status(200).json({
+    success: true,
+    data: allBook,
+  });
+}
+
+// get the all book without pending and unpublish 
+async function getTheAllBookWithoutUnpublishPending(req, res) {
+  console.log(req.headers.authorization);
+  const allBook = await bookModel.find({status:'Approved'});
   res.status(200).json({
     success: true,
     data: allBook,
@@ -148,5 +157,6 @@ module.exports = {
   updatePendingStatus,
   getThePendingBookForPermission,
   getThePendingBookSpecificLib,
-  bookUnpublish
+  bookUnpublish,
+  getTheAllBookWithoutUnpublishPending
 };
