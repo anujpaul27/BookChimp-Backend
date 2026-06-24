@@ -18,14 +18,19 @@ async function getTheAllBook(req, res) {
   });
 }
 
-// get the all book without pending and unpublish 
+// get the all book without pending and unpublish
 async function getTheAllBookWithoutUnpublishPending(req, res) {
-  console.log(req.headers.authorization);
-  const allBook = await bookModel.find({status:'Approved'});
-  res.status(200).json({
-    success: true,
-    data: allBook,
-  });
+  try {
+    const allBook = await bookModel.find({ status: "Approved" });
+    res.status(200).json({
+      success: true,
+      data: allBook,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message
+    })
+  }
 }
 
 async function getBookForLibrary(req, res) {
@@ -116,8 +121,8 @@ async function getThePendingBookForPermission(req, res) {
 
 async function getThePendingBookSpecificLib(req, res) {
   try {
-    const {id} = await req.params
-    const books = await bookModel.find({ status: "Pending" , librarianId: id });
+    const { id } = await req.params;
+    const books = await bookModel.find({ status: "Pending", librarianId: id });
     res.status(200).json({
       data: books,
     });
@@ -128,7 +133,7 @@ async function getThePendingBookSpecificLib(req, res) {
   }
 }
 
-// Unpublish books 
+// Unpublish books
 async function bookUnpublish(req, res) {
   try {
     const { id } = await req.params;
@@ -158,5 +163,5 @@ module.exports = {
   getThePendingBookForPermission,
   getThePendingBookSpecificLib,
   bookUnpublish,
-  getTheAllBookWithoutUnpublishPending
+  getTheAllBookWithoutUnpublishPending,
 };
