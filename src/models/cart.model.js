@@ -1,11 +1,11 @@
 const mongoose = require ('mongoose')
 
 const cartSchema = new mongoose.Schema({
-    userId: {type:String, require: true},
-    title: {type:String, require: true},
+    userId: {type:String, required: true},
+    title: {type:String, required: true},
     author: {type:String},
-    price: {type:Number, require: true},
-    image: {type:String, require: true},
+    price: {type:Number, required: true},
+    image: {type:String, required: true},
     quantity: {type:Number, default: 1}
 })
 
