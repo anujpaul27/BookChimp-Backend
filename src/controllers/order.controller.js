@@ -59,8 +59,27 @@ async function cartItemDelete (req,res)
   }
 }
 
+async function deleteItemAfterOrder (req,res)
+{
+  try 
+  {
+    const id = req.params.id;
+    const response = await cartModel.deleteMany({userId:id})
+    res.status(200).json({
+      message: 'Delete Successful '
+    })
+  }
+  catch (err)
+  {
+    res.status(500).json({
+      message: err.message
+    })
+  }
+}
+
 module.exports = {
   createCart,
   getTheCartList,
-  cartItemDelete
+  cartItemDelete,
+  deleteItemAfterOrder
 }
