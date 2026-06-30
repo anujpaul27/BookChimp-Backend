@@ -48,6 +48,23 @@ const getOrders = async (req, res) => {
   }
 };
 
+// Get delivered order
+const getDeliveredOrder = async (req, res) => {
+  try {
+    const orders = await orderModel.find({status:'Delivered'});
+
+    res.status(200).json({
+      success: true,
+      data: orders,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 const updateOrderStatus = async (req, res) => {
   try {
     const { id } = req.params;
@@ -85,5 +102,6 @@ const updateOrderStatus = async (req, res) => {
 module.exports = {
   createOrder,
   getOrders,
-  updateOrderStatus
+  updateOrderStatus,
+  getDeliveredOrder
 };
